@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late Future<List<Pet>> futurePets;
   List categorias = ['😺 Gato', '🐶 Cachorro', '🐹 Hamster', '🐰 Coelho'];
-   final List<Color> categoriasColors = [
+  final List<Color> categoriasColors = [
     Color(0xffFFF9BF),
     Color(0xffC5D3E8),
     Color(0xffFFDDAE),
@@ -53,11 +53,12 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              
-            },
-           icon: Icon(PhosphorIcons.magnifying_glass_bold, size: 25,),
-        ),
+            onPressed: () {},
+            icon: Icon(
+              PhosphorIcons.magnifying_glass_bold,
+              size: 25,
+            ),
+          ),
         ],
         backgroundColor: Colors.white,
       ),
@@ -109,24 +110,26 @@ class _HomePageState extends State<HomePage> {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: Container(
-                        padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                        padding: EdgeInsets.only(
+                            left: 10, right: 10, top: 5, bottom: 5),
                         decoration: BoxDecoration(
-                          color: categoriasColors[index],
-                          borderRadius: BorderRadius.circular(50)
+                            color: categoriasColors[index],
+                            borderRadius: BorderRadius.circular(50)),
+                        child: Text(
+                          categorias[index],
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                color: Color(0xff343434),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15),
+                          ),
                         ),
-                        child: Text(categorias[index], style: GoogleFonts.poppins(
-                          textStyle: TextStyle(
-                              color: Color(0xff343434),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15),
-                        ),),
                       ),
                     ),
                   );
                 },
               ),
             ),
-
             Expanded(
               child: FutureBuilder<List<Pet>>(
                 future: futurePets,
@@ -148,61 +151,104 @@ class _HomePageState extends State<HomePage> {
                       return Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: Container(
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(color: const Color(0xFFE9E9E9), borderRadius: BorderRadius.circular(20)),
+                              padding: EdgeInsets.only(left: 10, right: 15, bottom: 10, top: 10),
+                              decoration: BoxDecoration(
+                                  color: const Color(0xFFE9E9E9),
+                                  borderRadius: BorderRadius.circular(20)),
                               width: double.infinity,
                               child: Column(
                                 children: [
-                                  Row(
+                                  Flex(
+                                    direction: Axis.horizontal,
                                     children: [
                                       Container(
                                         width: 150,
                                         height: 150,
-                                        decoration:
-                                            BoxDecoration(color: const Color(0xFFFFD24A), borderRadius: BorderRadius.circular(20),),
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(20),
-                                              child: Image.network('https://www.petlove.com.br/images/breeds/192401/profile/original/srd-p.jpg?1532539578', fit: BoxFit.cover,)),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFFFD24A),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            child: Image.network(
+                                              'https://www.petlove.com.br/images/breeds/192401/profile/original/srd-p.jpg?1532539578',
+                                              fit: BoxFit.cover,
+                                            )),
                                       ),
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      // Column(
-                                      //   crossAxisAlignment:
-                                      //       CrossAxisAlignment.start,
-                                      //   children: [
-                                      //     Text(
-                                      //       pet.nome,
-                                      //       style: TextStyle(
-                                      //         color: Colors.black,
-                                      //         fontSize: 20,
-                                      //       ),
-                                      //     ),
-                                      //     Text(
-                                      //       pet.especie,
-                                      //       style: TextStyle(
-                                      //         color: Colors.black,
-                                      //         fontSize: 20,
-                                      //       ),
-                                      //     ),
-                                      //     Text(
-                                      //       pet.raca,
-                                      //       style: TextStyle(
-                                      //         color: Colors.black,
-                                      //         fontSize: 20,
-                                      //       ),
-                                      //     ),
-                                      //     Text(
-                                      //       pet.sexo,
-                                      //       style: TextStyle(
-                                      //         color: Colors.black,
-                                      //         fontSize: 20,
-                                      //       ),
-                                      //     ),
-                                      //   ],
-                                      // )
+                                      Expanded(
+                                        child: Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                children: [
+                                                 Icon(
+                                                    PhosphorIcons.heart_straight,
+                                                    color: Color(0xFF8E8D8D),
+                                                    size: 20,
+                                                  ),
+                                                ],
+                                              ),
+                                              Text(
+                                                pet.raca,
+                                                style: GoogleFonts.poppins(
+                                                  textStyle: TextStyle(
+                                                      color: Color(0xff343434),
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 18),
+                                                ),
+                                              ),
+                                              Text(
+                                                pet.nome,
+                                                style: GoogleFonts.poppins(
+                                                  textStyle: TextStyle(
+                                                      color: Color(0xFF8E8D8D),
+                                                      fontSize: 13),
+                                                ),
+                                              ),
+                                              Text(
+                                                pet.especie,
+                                                style: GoogleFonts.poppins(
+                                                  textStyle: TextStyle(
+                                                      color: Color(0xFF8E8D8D),
+                                                      fontSize: 13),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 15,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Icon(
+                                                    PhosphorIcons.gender_male,
+                                                    color: Color(0xFF8E8D8D),
+                                                    size: 20,
+                                                  ),
+                                                  Text(
+                                                    pet.sexo,
+                                                    style:GoogleFonts.poppins(
+                                                  textStyle: TextStyle(
+                                                      color: Color(0xFF8E8D8D),
+                                                      fontSize: 14),
+                                                ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
                                     ],
                                   )
                                 ],
