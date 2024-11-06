@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:teste_api_dot/createPet.dart';
 import 'package:teste_api_dot/models/petModel.dart';
@@ -49,6 +50,29 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
+            Text(
+              'This is Google Fonts',
+              style: GoogleFonts.lato(
+                textStyle: TextStyle(color: Colors.blue, letterSpacing: .5),
+              ),
+            ),
+            RichText(
+              text: TextSpan(
+                text: 'Olá, ',
+                style: GoogleFonts.lato(
+                    textStyle:
+                        TextStyle(color: Colors.black, letterSpacing: .5)),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: 'Erika',
+                    style: GoogleFonts.lato(
+                      textStyle:
+                          TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Expanded(
               child: FutureBuilder<List<Pet>>(
                 future: futurePets,
