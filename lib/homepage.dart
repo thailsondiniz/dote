@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:teste_api_dot/createPet.dart';
@@ -18,7 +19,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late Future<List<Pet>> futurePets;
-
+  List categorias = ['😺 Gato', '🐶 Cachorro', '🐹 Hamster', '🐰 Coelho'];
+   final List<Color> categoriasColors = [
+    Color(0xffFFF9BF),
+    Color(0xffC5D3E8),
+    Color(0xffFFDDAE),
+    Color(0xffD6C0B3)
+  ];
   @override
   void initState() {
     super.initState();
@@ -28,8 +35,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green,
+        backgroundColor: const Color(0xffFFDDAE),
         onPressed: () {
           Navigator.push(
             context,
@@ -39,40 +47,86 @@ class _HomePageState extends State<HomePage> {
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: Text(
-          'Teste',
-          style: TextStyle(color: Colors.white),
+        leading: Icon(
+          PhosphorIcons.equals_bold,
+          size: 30,
         ),
-        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              
+            },
+           icon: Icon(PhosphorIcons.magnifying_glass_bold, size: 25,),
+        ),
+        ],
+        backgroundColor: Colors.white,
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'This is Google Fonts',
-              style: GoogleFonts.lato(
-                textStyle: TextStyle(color: Colors.blue, letterSpacing: .5),
-              ),
-            ),
-            RichText(
-              text: TextSpan(
-                text: 'Olá, ',
-                style: GoogleFonts.lato(
-                    textStyle:
-                        TextStyle(color: Colors.black, letterSpacing: .5)),
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'Erika',
-                    style: GoogleFonts.lato(
-                      textStyle:
-                          TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 20),
-                    ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: 'Olá, ',
+                    style: GoogleFonts.poppins(
+                        textStyle:
+                            TextStyle(color: Colors.black, fontSize: 20)),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'Erika.',
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              color: Color(0xff343434),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
+                Container(
+                  width: 40,
+                  height: 10,
+                  color: Colors.amber,
+                )
+              ],
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Container(
+              width: 400,
+              height: 50,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: categorias.length,
+                itemBuilder: (context, index) {
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Container(
+                        padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                        decoration: BoxDecoration(
+                          color: categoriasColors[index],
+                          borderRadius: BorderRadius.circular(50)
+                        ),
+                        child: Text(categorias[index], style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              color: Color(0xff343434),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15),
+                        ),),
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
+
             Expanded(
               child: FutureBuilder<List<Pet>>(
                 future: futurePets,
@@ -96,7 +150,8 @@ class _HomePageState extends State<HomePage> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
-                              decoration: BoxDecoration(color: Colors.grey),
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(color: const Color(0xFFE9E9E9), borderRadius: BorderRadius.circular(20)),
                               width: double.infinity,
                               child: Column(
                                 children: [
@@ -106,45 +161,48 @@ class _HomePageState extends State<HomePage> {
                                         width: 150,
                                         height: 150,
                                         decoration:
-                                            BoxDecoration(color: Colors.amber),
+                                            BoxDecoration(color: const Color(0xFFFFD24A), borderRadius: BorderRadius.circular(20),),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(20),
+                                              child: Image.network('https://www.petlove.com.br/images/breeds/192401/profile/original/srd-p.jpg?1532539578', fit: BoxFit.cover,)),
                                       ),
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            pet.nome,
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                          Text(
-                                            pet.especie,
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                          Text(
-                                            pet.raca,
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                          Text(
-                                            pet.sexo,
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                        ],
-                                      )
+                                      // Column(
+                                      //   crossAxisAlignment:
+                                      //       CrossAxisAlignment.start,
+                                      //   children: [
+                                      //     Text(
+                                      //       pet.nome,
+                                      //       style: TextStyle(
+                                      //         color: Colors.black,
+                                      //         fontSize: 20,
+                                      //       ),
+                                      //     ),
+                                      //     Text(
+                                      //       pet.especie,
+                                      //       style: TextStyle(
+                                      //         color: Colors.black,
+                                      //         fontSize: 20,
+                                      //       ),
+                                      //     ),
+                                      //     Text(
+                                      //       pet.raca,
+                                      //       style: TextStyle(
+                                      //         color: Colors.black,
+                                      //         fontSize: 20,
+                                      //       ),
+                                      //     ),
+                                      //     Text(
+                                      //       pet.sexo,
+                                      //       style: TextStyle(
+                                      //         color: Colors.black,
+                                      //         fontSize: 20,
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // )
                                     ],
                                   )
                                 ],
